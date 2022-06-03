@@ -106,7 +106,6 @@
 </template>
 
 <script>
-import { auth, usersCollection } from "@/includes/firebase";
 export default {
   name: "RegisterForm",
   data() {
@@ -136,28 +135,13 @@ export default {
       this.reg_alert_variant = "bg-blue-500";
       this.reg_alert_msg = "Please, wait. You account is being created";
 
-      let userCred = null;
-
       try {
-        userCred = await auth.createUserWithEmailAndPassword(
-          values.email,
-          values.password
-        );
+        await this.$store.dispatch("register", values);
       } catch (error) {
-        registerErrorHandler();
-
-        return;
-      }
-
-      try {
-        await usersCollection.add({
-          name: values.name,
-          email: values.email,
-          age: values.age,
-          country: values.country,
-        });
-      } catch (error) {
-        registerErrorHandler();
+        this.reg_in_submission = false;
+        this.reg_alert_variant = "bg-red-500";
+        this.reg_alert_msg =
+          "An unexpected error occured. Please, try again later....";
 
         return;
       }
@@ -166,13 +150,6 @@ export default {
       this.reg_alert_msg = "Success! Your account has been created";
       console.log("register form", values);
       console.log("user cred from fb", userCred);
-
-      function registerErrorHandler() {
-        this.reg_in_submission = false;
-        this.reg_alert_variant = "bg-red-500";
-        this.reg_alert_msg =
-          "An unexpected error occured. Please, try again later...";
-      }
     },
   },
 };
