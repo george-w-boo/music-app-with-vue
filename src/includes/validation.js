@@ -16,7 +16,6 @@ import {
   confirmed,
   not_one_of as excluded,
 } from "@vee-validate/rules";
-import { toUnicode } from "punycode";
 
 export default {
   install(app) {
