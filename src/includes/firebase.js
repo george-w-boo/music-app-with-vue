@@ -13,7 +13,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebas
-!firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
+firebase.initializeApp(firebaseConfig);
+// !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
 
 const auth = firebase.auth();
 const db = firebase.firestore();
