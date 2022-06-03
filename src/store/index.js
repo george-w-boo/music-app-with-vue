@@ -44,6 +44,14 @@ export const store = createStore({
         commit("toggleAuth");
       }
     },
+    async login({ commit }, payload) {
+      console.log("isUserLoggedIn", isUserLoggedIn);
+      await auth.signInWithEmailAndPassword(payload.email, payload.password);
+
+      console.log("isUserLoggedIn", isUserLoggedIn);
+      commit("toggleAuth");
+      console.log("isUserLoggedIn", isUserLoggedIn);
+    },
   },
   modules: {},
 });
