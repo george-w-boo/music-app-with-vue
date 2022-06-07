@@ -59,8 +59,6 @@ export default {
         ? [...$event.dataTransfer.files]
         : [...$event.target.files];
 
-      console.log("event.files", files);
-
       files.forEach((file) => {
         if (file.type !== "audio/mpeg") {
           return;
@@ -117,6 +115,11 @@ export default {
         );
       });
     },
+  },
+  beforeUnmount() {
+    this.uploads.forEach((upload) => {
+      upload.task.cancel();
+    });
   },
 };
 </script>
