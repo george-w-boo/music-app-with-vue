@@ -63,7 +63,8 @@ export default {
   },
   methods: {
     updateSong(i, values) {
-      this.songs[i].modified_name = values.modified_name;
+      console.log("updatingsong");
+      this.songs[i].modifiedName = values.modifiedName;
       this.songs[i].genre = values.genre;
     },
   },
