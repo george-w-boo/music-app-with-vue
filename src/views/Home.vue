@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       songs: [],
-      maxPerPage: 3,
+      maxPerPage: 25,
       isRequestPending: false,
     };
   },
@@ -96,6 +96,8 @@ export default {
           ...document.data(),
         });
       });
+
+      console.log("songs", this.songs);
 
       this.isRequestPending = false;
     },
