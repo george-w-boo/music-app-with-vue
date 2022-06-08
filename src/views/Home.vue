@@ -51,19 +51,65 @@ export default {
   data() {
     return {
       songs: [],
+      maxPerPage: 3,
+      isRequestPending: false,
     };
   },
   async created() {
-    const snapshopts = await songsCollection.get();
+    this.updateSongs();
 
-    snapshopts.forEach((document) => {
-      this.songs.push({
-        docID: document.id,
-        ...document.data(),
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    async updateSongs() {
+      if (this.isRequestPending) {
+        return;
+      }
+
+      this.isRequestPending = true;
+
+      let snapshopts;
+
+      if (this.songs.length) {
+        const prevLastDoc = await songsCollection
+          .doc(this.songs[this.songs.length - 1].docID)
+          .get();
+
+        snapshopts = await songsCollection
+          .orderBy("modifiedName")
+          .startAfter(prevLastDoc)
+          .limit(this.maxPerPage)
+          .get();
+      } else {
+        snapshopts = await songsCollection
+          .orderBy("modifiedName")
+          .limit(this.maxPerPage)
+          .get();
+      }
+
+      snapshopts.forEach((document) => {
+        this.songs.push({
+          docID: document.id,
+          ...document.data(),
+        });
       });
 
-      console.log("song", { ...document.data() });
-    });
+      this.isRequestPending = false;
+    },
+    handleScroll() {
+      const { scrollTop, offsetHeight } = document.documentElement;
+      const { innerHeight } = window;
+
+      const bottomOfWindow =
+        Math.round(scrollTop) + innerHeight === offsetHeight;
+
+      if (bottomOfWindow) {
+        this.updateSongs();
+      }
+    },
   },
 };
 </script>
