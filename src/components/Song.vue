@@ -10,6 +10,7 @@
       <button
         type="button"
         class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
+        @click.prevent='newSong(song)'
       >
         <i class="fas fa-play"></i>
       </button>
@@ -89,7 +90,7 @@
 
 <script>
 import { songsCollection, auth, commentsCollection } from "@/includes/firebase";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Song",
@@ -136,6 +137,7 @@ export default {
     this.getComments();
   },
   methods: {
+    ...mapActions(['newSong']),
     async addComment(values, { resetForm }) {
       this.commentInSubmission = true;
       this.commentShowAlert = true;
