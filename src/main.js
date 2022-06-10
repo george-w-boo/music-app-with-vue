@@ -5,6 +5,7 @@ import { store } from "./store/index";
 import VeeValidatePlugin from "./includes/validation.js";
 import { auth } from "./includes/firebase.js";
 import icon from "./directives/icon";
+import i18n from "./includes/i18n";
 import "./assets/base.css";
 
 let app;
@@ -13,6 +14,7 @@ auth.onAuthStateChanged(() => {
   if (!app) {
     app = createApp(App);
 
+    app.use(i18n);
     app.use(store);
     app.use(router);
     app.use(VeeValidatePlugin);

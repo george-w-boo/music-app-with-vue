@@ -1,0 +1,19 @@
+{
+  "home": {
+    "listen": "Listen to Great Music!"
+  },
+  "song": {
+    "comments_count": "No comments | One comment | {count} comments"
+  },
+  "register": {
+    "TOS": "Terms of Service",
+    "accept": "I accept {0}"
+  },
+  "header": {
+    "music": "MUSIC",
+    "about": "About",
+    "log_reg": "Login / Register",
+    "manage": "Manage",
+    "logout": "Logout"
+  }
+}
