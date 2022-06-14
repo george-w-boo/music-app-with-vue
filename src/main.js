@@ -7,6 +7,10 @@ import { auth } from "./includes/firebase.js";
 import icon from "./directives/icon";
 import i18n from "./includes/i18n";
 import "./assets/base.css";
+import ProgressBar from "./includes/progress-bar";
+import "nprogress/nprogress.css";
+
+ProgressBar(router);
 
 let app;
 
