@@ -135,21 +135,23 @@ export default {
       });
     },
   },
-  async created() {
-    const songSnapshot = await songsCollection.doc(this.$route.params.id).get();
+  async beforeRouteEnter(to, from, next) {
+    const songSnapshot = await songsCollection.doc(to.params.id).get();
 
-    if (!songSnapshot.exists) {
-      this.$router.push({ name: "home" });
+    next((vm) => {
+      if (!songSnapshot.exists) {
+        vm.$router.push({ name: "home" });
 
-      return;
-    }
+        return;
+      }
 
-    const { sort } = this.$route.query;
+      const { sort } = vm.$route.query;
 
-    this.sort = sort === "1" || sort === "2" ? sort : "1";
+      vm.sort = sort === "1" || sort === "2" ? sort : "1";
 
-    this.song = songSnapshot.data();
-    this.getComments();
+      vm.song = songSnapshot.data();
+      vm.getComments();
+    });
   },
   methods: {
     ...mapActions(["newSong"]),
