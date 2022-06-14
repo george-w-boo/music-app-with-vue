@@ -57,7 +57,9 @@ import { mapMutations, mapState } from "vuex";
 export default {
   name: "AppHeader",
   computed: {
-    ...mapState(["isUserLoggedIn"]),
+    ...mapState({
+      isUserLoggedIn: (state) => state.auth.isUserLoggedIn,
+    }),
     currentLocale() {
       return this.$i18n.locale === "ua" ? "Ukrainian" : "English";
     },

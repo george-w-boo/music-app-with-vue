@@ -55,7 +55,7 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
-  if (store.state.isUserLoggedIn) {
+  if (store.state.auth.isUserLoggedIn) {
     next();
   } else {
     next({ name: "home" });

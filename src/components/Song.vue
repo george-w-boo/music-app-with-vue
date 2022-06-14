@@ -121,7 +121,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn"]),
+    ...mapState({
+      isUserLoggedIn: (state) => state.auth.isisUserLoggedIn,
+    }),
     ...mapGetters(["playing"]),
     sortedComments() {
       return this.comments.slice().sort((a, b) => {
