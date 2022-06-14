@@ -1,6 +1,6 @@
 # music-app-with-vue
 
-This template should help get you started developing with Vue 3 in Vite.
+You can see the deployed app here: https://music-app-with-vue.vercel.app/
 
 ## Recommended IDE Setup
 
